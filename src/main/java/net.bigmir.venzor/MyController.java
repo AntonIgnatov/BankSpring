@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Formatter;
 import java.util.List;
 
 @Controller
@@ -86,11 +87,12 @@ public class MyController {
         return "result";
     }
 
-    @RequestMapping("/all_in_uah")
+    @RequestMapping("/all")
     public String allInUah(@RequestParam("user_id") long userId, Model model){
         List resault = bankService.getAllMoney(userId);
-        String msg = "У пользователя "+resault.get(0)+ " "+resault.get(1)+" украинских золотых дублонов))";
-        model.addAttribute("msg", msg);
+        Formatter fm = new Formatter();
+        fm.format("У пользователя %s %.2f украинских золотых дублонов))", resault.get(0), resault.get(1));
+        model.addAttribute("msg", fm.toString());
         return "result";
     }
 

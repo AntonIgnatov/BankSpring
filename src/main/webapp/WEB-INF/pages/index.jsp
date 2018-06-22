@@ -74,7 +74,7 @@
     </form>
 
     <h3>Трасзакциии:</h3>
-    <div>
+
         <form action="/transh/user" method="post">
             Для пользователя: <select name="user_id">
             <option value="-1">Все</option>
@@ -86,8 +86,8 @@
             <br>
             <input type="submit" value="подглядеть">
         </form>
-    </div>
-    <div>
+
+
         <form action="/transh/curensy" method="post">
             Для валюты: <select name="curensy_name">
             <option value="ALL">Все</option>
@@ -99,7 +99,19 @@
             <br>
             <input type="submit" value="подглядеть">
         </form>
-    </div>
+
+   <form action="/all" method="post">
+
+
+    Сумарный депосит пользователя: <select name="user_id">
+    <c:forEach items="${users}" var="user">
+        <option value="${user.id}">${user.name}</option>
+    </c:forEach>
+</select>
+      <input type="submit" value="Проверить">
+</form>
+
+
 
 
 

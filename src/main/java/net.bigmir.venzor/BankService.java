@@ -139,7 +139,7 @@ public class BankService {
         comission(userId, curensyFrom, amount);
         List<Curensy> curensyList = curensyRepository.findAll();
         double amountEx = amount*(curensyList.get(curensyTo).getRate()/curensyList.get(curensyFrom).getRate());
-        addMoney(userId, curensyTo, amount);
+        addMoney(userId, curensyTo, amountEx);
         addTransactions(userId, userId, curensyFrom, curensyTo, amount);
     }
 
@@ -148,9 +148,10 @@ public class BankService {
         User user = userRepository.findOne(userId);
         resault.add(user.getName());
         List<Curensy> curensyList = curensyRepository.findAll();
-        double count = user.getAccounts().get(0).getAmount()+
-                        user.getAccounts().get(1).getAmount()*curensyList.get(1).getRate()+
-                         user.getAccounts().get(1).getAmount()*curensyList.get(1).getRate();
+        double count = 0;
+        for(int i = 0; i < curensyList.size(); i++){
+            count += user.getAccounts().get(i).getAmount()/curensyList.get(i).getRate();
+        }
         resault.add(count);
         return resault;
     }
